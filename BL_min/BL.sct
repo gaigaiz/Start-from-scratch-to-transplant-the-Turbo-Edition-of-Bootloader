@@ -1,0 +1,12 @@
+LR_IROM1 0x08000000 0x0000C000 {            ; 48KB = BL_BOOT_SIZE
+  ER_IROM1 0x08000000 0x0000C000 {
+   *.o (RESET, +First)
+   *(InRoot$$Sections)
+   .ANY (+RO)
+   .ANY (+XO)
+  }
+  RW_IRAM1 0x20000000 0x00020000 { .ANY (+RW +ZI) }
+  ER_IRAM_FUNC +0 {                          ; Flash 单元放 RAM 执行（关键）
+   bsp_flash.o (+RO)
+  }
+}
